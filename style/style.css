@@ -1,0 +1,24 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    background-color: green;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.setting {
+    width: 45%;
+    background-color: #fff;
+    height: 14em;
+}
+
+
+.grid-element {
+    width: 100%;
+    height: 100%;
+}
