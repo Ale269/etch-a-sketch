@@ -11,6 +11,7 @@ createDivCanvas(rangeSelector.value);
 
 
 //function
+
     // create canvas resolution
     function createDivCanvas(number) {
         for(let i = 0; i < number * number; i++){
@@ -70,10 +71,19 @@ createDivCanvas(rangeSelector.value);
     }
 
 
+    //clear canvas 
+    function clearCanvas() {
+        document.querySelectorAll(".grid-element").forEach((element) => {
+            element.style.cssText = ` `;
+        })
+    }
+
+
 
 
 
 // events
+
     // display resolution
     rangeSelector.addEventListener("mousemove", () => {
         showRangeValue.textContent = rangeSelector.value + " x " + rangeSelector.value;
@@ -105,6 +115,7 @@ createDivCanvas(rangeSelector.value);
     // change color for drawing and reset class
     colorSelector.onchange = () => {updateColorValue()};
 
-
+    // clear canvas
+    document.getElementById("clear-canvas").addEventListener("click", clearCanvas);
 
 
