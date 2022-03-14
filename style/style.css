@@ -13,10 +13,10 @@ h1 {
     text-align:center;
     margin-top: 3em;
     font-size: 50px;
+    margin-bottom: 3em;
 }
 
 .main-container {
-    height: 80%;
     max-width: 1000px;
     display: flex;
     justify-content: space-around;
