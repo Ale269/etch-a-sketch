@@ -4,8 +4,10 @@ const canvas = document.querySelector(".canvas");
 const colorSelector = document.getElementById("color-selector");
 const eraserBTN = document.getElementById("eraser");
 const colorModeBTN = document.getElementById("color");
+const pureColorModeBTN = document.getElementById("pure-color");
 let colorValue = colorSelector.value;
 let mousePressed = false;
+let pureColor = false;
 
 
 // display initial value
@@ -21,13 +23,14 @@ createDivCanvas(rangeSelector.value);
             let div = document.createElement("div");
             div.setAttribute("class", "grid-element");
 
-            canvas.style.cssText=`width: 45%;
+            canvas.style.cssText=`
                 background-color: #fff;
                 height: 34em;
                 width: 34em;
                 display: grid;
                 grid-template-columns: repeat(${number}, 1fr);
                 grid-template-rows: repeat(${number}, 1fr);
+                box-shadow: 20px 20px 40px #CDCDCD;
             `;
 
             document.querySelector(".canvas").prepend(div);
@@ -42,6 +45,7 @@ createDivCanvas(rangeSelector.value);
             element.classList.remove("color1");
             element.classList.remove("color2");
             element.classList.remove("color3");
+            element.classList.remove("pure-colored");
         })
     }
 
@@ -49,6 +53,14 @@ createDivCanvas(rangeSelector.value);
     // set color attribute on target
     function colorDiv(events) {
         if(mousePressed === true){
+            if(pureColor === true){
+                events.target.classList.add("pure-colored");
+                events.target.style.cssText = `
+                background-color: ${colorValue};
+                opacity: 1;
+            `
+                return;
+            }
             if(events.target.classList.contains("color1")){
                 if(events.target.classList.contains("color2")){
                     events.target.classList.add("color3");
@@ -79,6 +91,10 @@ createDivCanvas(rangeSelector.value);
     function clearCanvas() {
         document.querySelectorAll(".grid-element").forEach((element) => {
             element.style.cssText = ` `;
+            element.classList.remove("color1");
+            element.classList.remove("color2");
+            element.classList.remove("color3");
+            element.classList.remove("pure-colored");
         })
     }
 
@@ -127,13 +143,24 @@ createDivCanvas(rangeSelector.value);
         updateColorValue("none");
         eraserBTN.classList.add("active");
         colorModeBTN.classList.remove("active");
+        pureColorModeBTN.classList.remove("active");
     });
 
     // return to drawing 
     colorModeBTN.addEventListener("click", () => {
+        pureColor = false;
         updateColorValue(colorSelector.value)
         colorModeBTN.classList.add("active");
         eraserBTN.classList.remove("active");
+        pureColorModeBTN.classList.remove("active");
     }); 
+
+    // select pure color mode 
+    pureColorModeBTN.addEventListener("click", () => {
+        pureColor = true;
+        pureColorModeBTN.classList.add("active");
+        eraserBTN.classList.remove("active");
+        colorModeBTN.classList.remove("active");
+    });
 
 
