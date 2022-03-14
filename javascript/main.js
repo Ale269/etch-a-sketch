@@ -137,8 +137,15 @@ let colorValue = colorSelector.value;
     // change color for drawing and reset class
     colorSelector.onchange = () => {
         updateColorValue(colorSelector.value);
-        colorModeBTN.classList.add("active");
-        eraserBTN.classList.remove("active");
+        if(pureColor === false){
+            colorModeBTN.classList.add("active");
+            eraserBTN.classList.remove("active");
+            pureColorModeBTN.classList.remove("active");
+        }else {
+            pureColorModeBTN.classList.add("active");
+            eraserBTN.classList.remove("active");
+            colorModeBTN.classList.remove("active");
+        }
     };
 
     // select eraser
