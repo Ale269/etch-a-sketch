@@ -2,6 +2,8 @@ const rangeSelector = document.getElementById("range-selector");
 const showRangeValue = document.getElementById("show-range-value");
 const canvas = document.querySelector(".canvas");
 const colorSelector = document.getElementById("color-selector");
+const eraserBTN = document.getElementById("eraser");
+const colorModeBTN = document.getElementById("color");
 let colorValue = colorSelector.value;
 let mousePressed = false;
 
@@ -97,19 +99,15 @@ createDivCanvas(rangeSelector.value);
     // activate drowing while mouse is pressed
     document.addEventListener("mousedown", (events) => {
         if(events.target === rangeSelector){
-            
+
         }else{
             mousePressed = true;
-            console.log("mouse is pressed");
             events.preventDefault();
         }
     })
 
     // deactivate drowing when mouse is realised
-    document.addEventListener("mouseup", () => {
-        mousePressed = false;
-        console.log("mouse is realised");
-    })
+    document.addEventListener("mouseup", () => {mousePressed = false;})
 
     // color div target
     canvas.addEventListener("mouseover", colorDiv);
@@ -118,12 +116,24 @@ createDivCanvas(rangeSelector.value);
     document.getElementById("clear-canvas").addEventListener("click", clearCanvas);
 
     // change color for drawing and reset class
-    colorSelector.onchange = () => {updateColorValue(colorSelector.value)};
+    colorSelector.onchange = () => {
+        updateColorValue(colorSelector.value);
+        colorModeBTN.classList.add("active");
+        eraserBTN.classList.remove("active");
+    };
 
     // select eraser
-    document.getElementById("eraser").addEventListener("click", () => {updateColorValue("none")});
+    eraserBTN.addEventListener("click", () => {
+        updateColorValue("none");
+        eraserBTN.classList.add("active");
+        colorModeBTN.classList.remove("active");
+    });
 
     // return to drawing 
-    document.getElementById("color").addEventListener("click", () => {updateColorValue(colorSelector.value)}); 
+    colorModeBTN.addEventListener("click", () => {
+        updateColorValue(colorSelector.value)
+        colorModeBTN.classList.add("active");
+        eraserBTN.classList.remove("active");
+    }); 
 
 
