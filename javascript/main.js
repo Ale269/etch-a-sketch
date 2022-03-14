@@ -5,7 +5,9 @@ const colorSelector = document.getElementById("color-selector");
 const eraserBTN = document.getElementById("eraser");
 const colorModeBTN = document.getElementById("color");
 const pureColorModeBTN = document.getElementById("pure-color");
-let colorValue = colorSelector.value;
+
+
+// switch for logic
 let mousePressed = false;
 let pureColor = false;
 
@@ -13,6 +15,7 @@ let pureColor = false;
 // display initial value
 showRangeValue.textContent = rangeSelector.value + " x " + rangeSelector.value;
 createDivCanvas(rangeSelector.value);
+let colorValue = colorSelector.value;
 
 
 //function
@@ -149,7 +152,7 @@ createDivCanvas(rangeSelector.value);
     // return to drawing 
     colorModeBTN.addEventListener("click", () => {
         pureColor = false;
-        updateColorValue(colorSelector.value)
+        updateColorValue(colorSelector.value);
         colorModeBTN.classList.add("active");
         eraserBTN.classList.remove("active");
         pureColorModeBTN.classList.remove("active");
@@ -158,6 +161,7 @@ createDivCanvas(rangeSelector.value);
     // select pure color mode 
     pureColorModeBTN.addEventListener("click", () => {
         pureColor = true;
+        updateColorValue(colorSelector.value);
         pureColorModeBTN.classList.add("active");
         eraserBTN.classList.remove("active");
         colorModeBTN.classList.remove("active");
