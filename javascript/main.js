@@ -2,6 +2,7 @@ const rangeSelector = document.getElementById("range-selector");
 const showRangeValue = document.getElementById("show-range-value");
 const canvas = document.querySelector(".canvas");
 const colorSelector = document.getElementById("color-selector");
+let colorValue = colorSelector.value;
 let mousePressed = false;
 
 
@@ -33,7 +34,8 @@ createDivCanvas(rangeSelector.value);
 
 
     // update color value and cancel color class
-    function updateColorValue() {
+    function updateColorValue(color) {
+        colorValue = color;
         document.querySelectorAll(".grid-element").forEach((element) => {
             element.classList.remove("color1");
             element.classList.remove("color2");
@@ -49,21 +51,21 @@ createDivCanvas(rangeSelector.value);
                 if(events.target.classList.contains("color2")){
                     events.target.classList.add("color3");
                     events.target.style.cssText = `
-                        background-color: ${colorSelector.value};
+                        background-color: ${colorValue};
                         opacity: 1;
                     `;
                     return
                 }
                 events.target.classList.add("color2");
                 events.target.style.cssText = `
-                        background-color: ${colorSelector.value};
+                        background-color: ${colorValue};
                         opacity: 0.66;
                 `;
             }else{
                 events.target.classList.add("color1");
                 events.target.style.cssText = 
                     `
-                    background-color: ${colorSelector.value};
+                    background-color: ${colorValue};
                     opacity: 0.33;
                 `;
             }
@@ -112,10 +114,16 @@ createDivCanvas(rangeSelector.value);
     // color div target
     canvas.addEventListener("mouseover", colorDiv);
 
-    // change color for drawing and reset class
-    colorSelector.onchange = () => {updateColorValue()};
-
     // clear canvas
     document.getElementById("clear-canvas").addEventListener("click", clearCanvas);
+
+    // change color for drawing and reset class
+    colorSelector.onchange = () => {updateColorValue(colorSelector.value)};
+
+    // select eraser
+    document.getElementById("eraser").addEventListener("click", () => {updateColorValue("none")});
+
+    // return to drawing 
+    document.getElementById("color").addEventListener("click", () => {updateColorValue(colorSelector.value)}); 
 
 
